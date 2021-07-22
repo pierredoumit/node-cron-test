@@ -12,7 +12,7 @@ let cronJob;
 router.get("/", async (req, res) => {
     try {
         let page = req.query.page;
-        const my_limit = 1;
+        const my_limit = 30;
 
         if (page === undefined)
             page = 1;
