@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="">
+
+    <meta property="og:url" content="" />
+    <meta property="og:image" content="" />
+    <meta property="og:title" content="" />
+    <meta property="og:description" content="" />
+
+    <%- include('../Shared/Head') %>
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <%- include('../Shared/Header') %>
+        <section class="content">
+            <% if(info.length) { %>
+            <div class="ds_contentWrapper mt-3"
+                totalpages="<%= typeof total_pages != 'undefined' ? total_pages : '' %>">
+                <select class="selectBox mb-3">
+                    <option value="*/1 * * * *">1 minute</option>
+                    <option value="*/30 * * * *">30 minutes</option>
+                    <option value="0 0 */1 * * *">1 hour</option>
+                    <option value="0 0 0 * * *">1 day</option>
+                </select>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead class="ds_TableStyleHead">
+                            <tr>
+                                <th class="sortBy1" onclick="addSortDate('.sortBy1')">
+                                    Date
+                                </th>
+                                <th class="sortBy2" onclick="addSort('.sortBy2')">
+                                    Time
+                                </th>
+                                <th class="sortBy3" onclick="addSort('.sortBy3')">
+                                    Price
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="ds_TableStyleBody">
+                            <% info.forEach(item =>{%>
+                            <tr class="ds_TableStyleBodyList">
+                                <td class="sortBy1">
+                                    <%= moment(item.createdAt).format('DD/MM/YYYY'); %>
+                                </td>
+                                <td class="sortBy2">
+                                    <%=  moment(item.createdAt).format('h:mm:ss a') %>
+                                </td>
+                                <td class="sortBy3">
+                                    <%= item.price %> $
+                                </td>
+                            </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="paginationContainer right">
+                    Page <span class="currentPageNum"></span> of <span class="totalPageNum"></span>
+                    <div class="prevNext">
+                        <span class="prevPage">Prev</span>
+                        <span class="nextPage">Next</span>
+                    </div>
+                    <div class="goToPage">
+                        Go to Page
+                        <input type="number" class="pageNumberInput" />
+                        <span class="goToPageGo">Go</span>
+                    </div>
+                </div>
+            </div>
+            <%}else{%>
+            <div class="notfound">No Result Found</div>
+            <%}%>
+        </section>
+        <%- include('../Shared/Footer')%>
+    </div>
+</body>
+
+</html>
